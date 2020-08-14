@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/register', 'Admin\RegisterController@register');
+Route::get('/verify/{id}/{hash}', ['uses' => 'Admin\RegisterController@verify', 'as' => 'verify']);
