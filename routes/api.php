@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/register', 'Admin\RegisterController@register');
 Route::get('/verify/{id}/{hash}', ['uses' => 'Admin\RegisterController@verify', 'as' => 'verify']);
+Route::post('/forgot-password', 'Admin\ForgotPasswordController@handle');
+Route::get('/reset-password/{id}/{hash}', ['uses' => 'Admin\ForgotPasswordController@resetLink', 'as' => 'reset-password']);
