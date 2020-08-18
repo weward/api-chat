@@ -62,5 +62,32 @@ class RegisterRepository {
 
         return true;
     }
+
+    /**
+     * Resend Verification Email
+     * 
+     * @param  int $id User ID
+     * @return boolean
+     */
+    public function resendVerificationEmail($id)
+    {
+        try {
+            $user = User::find($id);
+            
+            // Resend verification email
+            $details = [
+                'url' => route('verify', ['id' => $user->id, 'hash' => sha1($user->id)]),
+                'email' => $user->email
+            ];
+
+            SendVerificationEmail::dispatchIf(!is_null($user), $details);
+
+            return true;
+        } catch(\Throwable $th) {
+            
+            return false;
+        }
+
+    }
     
 }
