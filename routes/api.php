@@ -27,3 +27,10 @@ Route::get('/resend-verification-email/{id}', [
     'uses' => 'Admin\RegisterController@resendVerificationEmail', 
     'as' => 'resend-verification-email'
 ]);
+
+/**
+ * Authenticated Routes
+ */
+Route::middleware('auth:sanctum')->prefix('admin')->group(function() {
+    Route::get('/logout', 'Admin\AuthController@logout');
+});
