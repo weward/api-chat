@@ -33,4 +33,9 @@ Route::get('/resend-verification-email/{id}', [
  */
 Route::middleware('auth:sanctum')->prefix('admin')->group(function() {
     Route::get('/logout', 'Admin\AuthController@logout');
+    // Billing
+    Route::prefix('billing')->group(function() {
+        Route::get('/get-stripe', 'Admin\BillingController@index');
+        Route::post('/setup-payment-method', 'Admin\BillingController@setupPaymentMethod');
+    });
 });

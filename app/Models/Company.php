@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Cashier\Billable;
 
 class Company extends Model
 {
+    use Billable;
+
     protected $table = 'companies';
 
     /**
@@ -16,7 +19,11 @@ class Company extends Model
     /**
      * Get the users of this company
      */
-    public function users() {
-        return $this->hasMany('App\User');
+    // public function users() {
+        // return $this->hasMany('App\User');
+    // }
+
+    public function inCharge() {
+        return $this->belongsTo('App\User', 'in_charge');
     }
 }
