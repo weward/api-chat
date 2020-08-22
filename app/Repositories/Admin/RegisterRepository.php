@@ -49,8 +49,14 @@ class RegisterRepository {
     {
         DB::beginTransaction();
         try {
+            $now = now();
+
             User::where('id', $id)->update([
-                'email_verified_at' => now()
+                'email_verified_at' => $now
+            ]);
+
+            Company::where('in_charge', $id)->update([
+                'verified_at' => $now,
             ]);
 
             DB::commit();
