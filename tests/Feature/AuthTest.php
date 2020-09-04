@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Bus;
 use Tests\TestCase;
 use Hash;
+use Laravel\Sanctum\Sanctum;
 use App\User;
 use App\Models\Company;
 use App\Jobs\SendVerificationEmail;
@@ -85,5 +86,26 @@ class AuthTest extends TestCase
 
         // Assert a job was pushed to a given queue...
         Bus::assertDispatched(SendVerificationEmail::class);
+    }
+
+    /**
+     * @test
+     */
+    public function loggedOutSuccessfully()
+    {
+        $company = factory(Company::class)->create();
+
+        Sanctum::actingAs(
+            $user = factory(User::class)->create([
+                'company_id' => $company->id
+            ]),
+            []
+        );
+
+        $company->in_charge = $user->id;
+        $company->save();
+
+        $res = $this->getJson('api/admin/logout')
+            ->assertStatus(200);
     }
 }

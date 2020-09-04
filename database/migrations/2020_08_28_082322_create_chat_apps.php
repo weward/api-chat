@@ -19,6 +19,7 @@ class CreateChatApps extends Migration
          */
         Schema::create('chat_apps', function (Blueprint $table) {
             $table->id();
+            $table->string('hash');
             $table->foreignId('company_id')
                 ->constrained()
                 ->onDelete('cascade');
@@ -26,7 +27,7 @@ class CreateChatApps extends Migration
             $table->string('domain');
             $table->timestamps();
 
-            $table->index(['company_id']);
+            $table->index(['hash', 'company_id']);
         });
     }
 

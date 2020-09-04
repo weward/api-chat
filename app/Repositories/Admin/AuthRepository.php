@@ -57,7 +57,13 @@ class AuthRepository {
         DB::beginTransaction();
         try {
             $req->user()->tokens()->delete();
-
+            
+            // Log User Logout
+            $req->user()->logs()->save(new UserLog([
+                'user_id' => $req->user()->id,
+                'action' => 'Logged Out'
+            ]));
+                
             DB::commit();
 
             return true;

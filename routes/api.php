@@ -29,6 +29,11 @@ Route::get('/resend-verification-email/{id}', [
 ]);
 
 /**
+ * Embedded Application
+ */
+// This is the point where <iFrames> connect
+Route::post('/embed/app-settings', 'Embed\EmbedController@embedAppSettings');
+/**
  * Authenticated Routes
  */
 Route::middleware('auth:sanctum')->prefix('admin')->group(function() {
