@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,3 +45,7 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function() {
         Route::post('/setup-payment-method', 'Admin\BillingController@setupPaymentMethod');
     });
 });
+
+
+// Broadcast::routes(['middleware' => 'auth:api']); 
+Route::get('test', 'Admin\ChatController@test');

@@ -38,6 +38,12 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => true,
+                // Below settings are for laravel-websocket (own websocket server)
+                // that uses the same config as Pusher
+                // https://beyondco.de/docs/laravel-websockets/basic-usage/pusher
+                'host' => env('WEBSOCKET_SERVER_HOST'),
+                'port' => env('WEBSOCKET_SERVER_PORT'),
+                'scheme' => 'http'
             ],
         ],
 
