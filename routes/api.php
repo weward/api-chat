@@ -33,7 +33,10 @@ Route::get('/resend-verification-email/{id}', [
  * Embedded Application
  */
 // This is the point where <iFrames> connect
-Route::post('/embed/app-settings', 'Embed\EmbedController@embedAppSettings');
+Route::prefix('embed')->group(function() {
+    Route::post('/app-settings', 'Embed\RenderController@embedAppSettings');
+    Route::post('/login', 'Embed\QueueController@connect');
+});
 /**
  * Authenticated Routes
  */
