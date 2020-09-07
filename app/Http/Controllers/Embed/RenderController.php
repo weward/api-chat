@@ -5,14 +5,25 @@ namespace App\Http\Controllers\Embed;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmbedAppSettingsRequest;
+use App\Repositories\Embed\RenderRepository;
 
 class RenderController extends Controller
 {
+    protected $repo;
+
+    public function __construct(RenderRepository $repo)
+    {
+        $this->repo = $repo;
+    }
+
+    /**
+     * Load Embedded Chat Settings
+     */
     public function embedAppSettings(EmbedAppSettingsRequest $request)
     {
         $res = $this->repo->embedAppSettings($request);
         if ($res['response']) {
-            return response()->json($res['app_settings'], 200);
+            return response()->json($res, 200);
         }
 
         return response()->json($res['message'], 500);
