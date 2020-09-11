@@ -47,8 +47,31 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function() {
         Route::get('/get-stripe', 'Admin\BillingController@index');
         Route::post('/setup-payment-method', 'Admin\BillingController@setupPaymentMethod');
     });
+    Route::prefix('chat')->group(function() {
+        Route::get('/init-inbox', 'Admin\Chat\CustomerController@initInbox');
+        Route::get('/add-new-customer', 'Admin\Chat\CustomerController@add');
+        Route::post('/send-message', 'Admin\Chat\MessageController@send');
+    });
 });
 
 
 // Broadcast::routes(['middleware' => 'auth:api']); 
-Route::get('test', 'Admin\ChatController@test');
+Broadcast::routes(['middleware' => 'auth:sanctum']); 
+// Broadcast::routes();
+// Route::get('test', 'Admin\ChatController@test');
+// use App\Models\ChatApp;
+// Route::get('test', function() {
+//     // dd(\Cache::get('356a192b7913b04c54574d18c28d46e6395428ab'));
+//     // dd(\Cache::get('test'));
+//     // dd(ChatApp::where('hash', '356a192b7913b04c54574d18c28d46e6395428ab')->first());
+//     // dd(\Cache::forget('356a192b7913b04c54574d18c28d46e6395428ab'));
+
+//     // if (!Cache::has('356a192b7913b04c54574d18c28d46e6395428ab')) {
+//         // $chatApp = ChatApp::where('hash', '356a192b7913b04c54574d18c28d46e6395428ab')->first()->id;
+//         // Cache::forever('356a192b7913b04c54574d18c28d46e6395428ab', $chatApp);
+//     // } else {
+//         // $chatApp = Cache::get('356a192b7913b04c54574d18c28d46e6395428ab');
+//     // }
+
+//     // dd($chatApp); 
+// });
